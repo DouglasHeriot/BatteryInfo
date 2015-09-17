@@ -65,26 +65,26 @@
 + (NSDictionary*) attributes
 {
 	/* Return the attributes of this plug-in */
-	return [NSDictionary dictionaryWithObjectsAndKeys:kQCPlugIn_Name, QCPlugInAttributeNameKey, kQCPlugIn_Description, QCPlugInAttributeDescriptionKey, nil];
+	return @{QCPlugInAttributeNameKey: kQCPlugIn_Name, QCPlugInAttributeDescriptionKey: kQCPlugIn_Description};
 }
 
 + (NSDictionary*) attributesForPropertyPortWithKey:(NSString*)key
 {
 	/* Return the attributes for the plug-in property ports */
 	if([key isEqualToString:@"outputInstalled"])
-	return [NSDictionary dictionaryWithObject:@"Installed" forKey:QCPortAttributeNameKey];
+	return @{QCPortAttributeNameKey: @"Installed"};
 	if([key isEqualToString:@"outputCharging"])
-	return [NSDictionary dictionaryWithObject:@"Charging" forKey:QCPortAttributeNameKey];
+	return @{QCPortAttributeNameKey: @"Charging"};
 	if([key isEqualToString:@"outputConnected"])
-	return [NSDictionary dictionaryWithObject:@"Power Connected" forKey:QCPortAttributeNameKey];
+	return @{QCPortAttributeNameKey: @"Power Connected"};
 	if([key isEqualToString:@"outputCurrent"])
-	return [NSDictionary dictionaryWithObject:@"Current (mA)" forKey:QCPortAttributeNameKey];
+	return @{QCPortAttributeNameKey: @"Current (mA)"};
 	if([key isEqualToString:@"outputVoltage"])
-	return [NSDictionary dictionaryWithObject:@"Voltage (mV)" forKey:QCPortAttributeNameKey];
+	return @{QCPortAttributeNameKey: @"Voltage (mV)"};
 	if([key isEqualToString:@"outputCapacity"])
-	return [NSDictionary dictionaryWithObject:@"Capacity" forKey:QCPortAttributeNameKey];
+	return @{QCPortAttributeNameKey: @"Capacity"};
 	if([key isEqualToString:@"outputMaxCapacity"])
-	return [NSDictionary dictionaryWithObject:@"Maximum Capacity" forKey:QCPortAttributeNameKey];
+	return @{QCPortAttributeNameKey: @"Maximum Capacity"};
 	
 	return nil;
 }
@@ -128,13 +128,13 @@
 	}
 	
 	if(CFArrayGetCount(list) && (battery = IOPSGetPowerSourceDescription(info, CFArrayGetValueAtIndex(list, 0)))) {
-		self.outputInstalled = [[(NSDictionary*)battery objectForKey:@kIOPSIsPresentKey] boolValue];
-		self.outputConnected = [(NSString*)[(NSDictionary*)battery objectForKey:@kIOPSPowerSourceStateKey] isEqualToString:@kIOPSACPowerValue];
-		self.outputCharging = [[(NSDictionary*)battery objectForKey:@kIOPSIsChargingKey] boolValue];
-		self.outputCurrent = [[(NSDictionary*)battery objectForKey:@kIOPSCurrentKey] doubleValue];
-		self.outputVoltage = [[(NSDictionary*)battery objectForKey:@kIOPSVoltageKey] doubleValue];
-		self.outputCapacity = [[(NSDictionary*)battery objectForKey:@kIOPSCurrentCapacityKey] doubleValue];
-		self.outputMaxCapacity = [[(NSDictionary*)battery objectForKey:@kIOPSMaxCapacityKey] doubleValue];
+		self.outputInstalled = [((NSDictionary*)battery)[@kIOPSIsPresentKey] boolValue];
+		self.outputConnected = [(NSString*)((NSDictionary*)battery)[@kIOPSPowerSourceStateKey] isEqualToString:@kIOPSACPowerValue];
+		self.outputCharging = [((NSDictionary*)battery)[@kIOPSIsChargingKey] boolValue];
+		self.outputCurrent = [((NSDictionary*)battery)[@kIOPSCurrentKey] doubleValue];
+		self.outputVoltage = [((NSDictionary*)battery)[@kIOPSVoltageKey] doubleValue];
+		self.outputCapacity = [((NSDictionary*)battery)[@kIOPSCurrentCapacityKey] doubleValue];
+		self.outputMaxCapacity = [((NSDictionary*)battery)[@kIOPSMaxCapacityKey] doubleValue];
 	}
 	else {
 		self.outputInstalled = NO;
