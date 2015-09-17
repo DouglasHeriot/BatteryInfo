@@ -46,6 +46,7 @@
 */
 
 /* It's highly recommended to use CGL macros instead of changing the current context for plug-ins that perform OpenGL rendering */
+#import <Foundation/Foundation.h>
 #import <OpenGL/CGLMacro.h>
 
 #import <IOKit/ps/IOPowerSources.h>
